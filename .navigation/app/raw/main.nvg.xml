@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "me.iwf.photopicker.PhotoPagerActivity"/>
+      <point      
+        x = "1880"      
+        y = "-48"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.microweekend.mumu.microweekend.MainTab"/>
+      <point      
+        x = "-164"      
+        y = "-236"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.microweekend.mumu.microweekend.MkSendDetail"/>
+      <point      
+        x = "232"      
+        y = "1436"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "me.iwf.photopicker.PhotoPickerActivity"/>
+      <point      
+        x = "1512"      
+        y = "1400"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.microweekend.mumu.microweekend.WelcomeAct"/>
+      <point      
+        x = "840"      
+        y = "40"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.microweekend.mumu.microweekend.MkDetail"/>
+      <point      
+        x = "3644"      
+        y = "660"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.microweekend.mumu.microweekend.MkSendTile"/>
+      <point      
+        x = "2828"      
+        y = "164"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

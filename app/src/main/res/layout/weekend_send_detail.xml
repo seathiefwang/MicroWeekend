@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/backgroundcolor">
+
+    <RelativeLayout
+        android:id="@+id/send_detail_headly"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/headcolor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/send_detail_back"
+            android:textColor="@color/whitecolor"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:background="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="活动详情"
+            android:id="@+id/send_detail_title"
+            android:layout_centerInParent="true"
+            android:textColor="@color/whitecolor"
+            android:textSize="22dp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="发送"
+            android:id="@+id/send_detail_send"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/whitecolor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/send_detail_headly"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false" />
+    </RelativeLayout>
+</RelativeLayout>

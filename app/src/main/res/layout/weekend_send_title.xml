@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/backgroundcolor">
+
+    <RelativeLayout
+        android:id="@+id/send_title_head"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/headcolor">
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="取消"
+            android:id="@+id/send_title_cancel"
+            android:textColor="@color/whitecolor"
+            android:textSize="18dp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布活动"
+            android:id="@+id/send_title"
+            android:layout_centerInParent="true"
+            android:textColor="@color/whitecolor"
+            android:textSize="22dp" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="下一步"
+            android:id="@+id/send_title_next"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/whitecolor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/send_title_picturely"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_title_head">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/send_title_picture1"
+            android:src="@drawable/__picker_ic_photo_black_48dp" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/send_title_picture2"
+            android:layout_toRightOf="@+id/send_title_picture1"
+            android:src="@drawable/__picker_ic_photo_black_48dp"/>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/send_title_picture3"
+            android:layout_toRightOf="@+id/send_title_picture2"
+            android:src="@drawable/__picker_ic_photo_black_48dp"/>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/send_title_picture4"
+            android:layout_toRightOf="@+id/send_title_picture3"
+            android:src="@drawable/__picker_ic_photo_black_48dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_title_picturely"
+        android:padding="10dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:hint="活动的标题"
+            android:background="@drawable/input_black"
+            android:padding="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:layout_below="@+id/editText"
+            android:hint="活动的时间"
+            android:padding="10dp"
+            android:background="@drawable/input_black"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3"
+            android:layout_below="@+id/editText2"
+            android:hint="活动的地点"
+            android:padding="10dp"
+            android:background="@drawable/input_black"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText4"
+            android:layout_below="@+id/editText3"
+            android:hint="活动的收费"
+            android:padding="10dp"
+            android:background="@drawable/input_black"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+</RelativeLayout>

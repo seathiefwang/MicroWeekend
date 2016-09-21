@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">微周末</string>
+
+    <string name="pull_to_refresh_pull_label">拖拽刷新...</string>
+    <string name="pull_to_refresh_release_label">松手即可刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">刷新...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新...</string>
+</resources>

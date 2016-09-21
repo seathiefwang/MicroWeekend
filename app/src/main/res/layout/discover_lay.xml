@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="深圳"
+            android:id="@+id/tv_discover_city"
+            android:layout_centerVertical="true"
+            android:textColor="@color/blackcolor"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_square"
+            android:id="@+id/et_discover_find"
+            android:layout_toRightOf="@+id/tv_discover_city"
+            android:hint="搜索活动"
+            android:singleLine="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

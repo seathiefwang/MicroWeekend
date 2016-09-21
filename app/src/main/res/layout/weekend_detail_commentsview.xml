@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/new_regist_poppic_default"
+        android:layout_marginLeft="7dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/portrait_round_nor"
+        android:id="@+id/imageView8"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="7dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="14"
+        android:singleLine="true"
+        android:text="哪里来的木木"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/blackcolor"
+        android:layout_alignParentLeft="false"
+        android:layout_toRightOf="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="评论内容"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/blackcolor"
+        android:layout_alignParentLeft="false"
+        android:layout_toRightOf="@+id/imageView8"
+        android:layout_below="@+id/textView10" />
+</RelativeLayout>
