@@ -19,7 +19,7 @@ import java.net.URL;
 
 public class BitmapUtil {
 
-	public static final String CACHESPATH = "mnt/sdcard/anjoyweibo/cache/";
+	public static final String CACHESPATH = "mnt/sdcard/microweekend/cache/";
 
 	/**
 	 * 将网络图片 转换成Bitmap
@@ -32,6 +32,7 @@ public class BitmapUtil {
 		Bitmap bitmap =getbitfromfile(path);
 		if (bitmap == null) {
 			try {
+				System.out.println("get picture from url:" + path);
 				URL url = new URL(path);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setDoInput(true);
@@ -48,7 +49,7 @@ public class BitmapUtil {
 		return bitmap;
 	}
 	public static Bitmap getbitfromfile(String url) {
-		return BitmapFactory.decodeFile(CACHESPATH + MD5Util.MD5(url) + ".png");
+		return BitmapFactory.decodeFile(CACHESPATH + MD5Util.MD5(url) + ".tmp");
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class BitmapUtil {
 	 * @param bitmap
 	 */
 	public static  void saveBitmap(String url, Bitmap bitmap) {
-		File file = new File(CACHESPATH + MD5Util.MD5(url) + ".png");
+		File file = new File(CACHESPATH + MD5Util.MD5(url) + ".tmp");
 //		file.getParentFile().length()
 		if (!file.exists()) {
 			file.getParentFile().mkdirs();
@@ -70,7 +71,7 @@ public class BitmapUtil {
 		FileOutputStream os;
 		try {
 			os = new FileOutputStream(file);
-			bitmap.compress(CompressFormat.PNG, 100, os);
+			bitmap.compress(CompressFormat.JPEG, 100, os);
 			os.close();
 		} catch (Exception e) {
 			e.printStackTrace();

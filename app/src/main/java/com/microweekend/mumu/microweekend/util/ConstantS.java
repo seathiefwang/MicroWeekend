@@ -2,6 +2,7 @@ package com.microweekend.mumu.microweekend.util;
 
 
 public interface ConstantS {
+
 	
 	//应用的key 请到官方申请正式的appkey替换APP_KEY
 	public static final String APP_KEY="3792133613";

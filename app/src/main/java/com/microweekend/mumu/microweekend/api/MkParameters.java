@@ -29,13 +29,17 @@ public class MkParameters {
         this.mValues.add(String.valueOf(value));
     }
 
+    public void add(String key, double value) {
+        this.mKeys.add(key);
+        this.mValues.add(String.valueOf(value));
+    }
+
     public void remove(String key) {
         int firstIndex = this.mKeys.indexOf(key);
         if(firstIndex >= 0) {
             this.mKeys.remove(firstIndex);
             this.mValues.remove(firstIndex);
         }
-
     }
 
     public void remove(int i) {

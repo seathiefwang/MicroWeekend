@@ -7,31 +7,35 @@
     <RelativeLayout
         android:id="@+id/namerelative"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="60dp"
         android:background="@color/whitecolor">
 
-        <ImageView
-            android:id="@+id/user_icon"
+        <com.microweekend.mumu.microweekend.customui.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/circleImageView"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/new_regist_poppic_default" />
+            android:src="@drawable/new_regist_poppic_default"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#c1c1c1" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/user_icon"
+            android:layout_toRightOf="@+id/circleImageView"
             android:drawablePadding="3dp"
             android:gravity="bottom"
             android:text="微周末活动组织者"
             android:textAppearance="@android:style/TextAppearance.Small"
             android:textColor="@color/blackcolor"
             android:textStyle="normal"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -47,15 +51,16 @@
     <ImageView
         android:id="@+id/tvstatusesimg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_below="@+id/namerelative"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/weekend_img_01"
-        android:adjustViewBounds="true" />
+        android:src="@drawable/skin_loading_icon"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tvstatusecontent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvstatusesimg"
         android:text="中秋节|最美黄瑶古镇·徒步看最美最全的梯田"
@@ -160,7 +165,8 @@
         android:layout_below="@+id/redrelativelayout"
         android:background="@drawable/graph_regtangle"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:visibility="gone">
         >
         <TextView
             android:id="@+id/btrewcount"

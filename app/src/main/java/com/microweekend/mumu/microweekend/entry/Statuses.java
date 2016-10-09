@@ -2,20 +2,14 @@ package com.microweekend.mumu.microweekend.entry;
 
 public class Statuses {
 
-//	  "created_at": "Tue May 31 17:46:55 +0800 2011",
-//      "id": 11488058246,
-//      "text": "求关注。",
-//      "source": "<a href="http://weibo.com" rel="nofollow">新浪微博</a>",
-//      "favorited": false,
-//      "truncated": false,
-//      "in_reply_to_status_id": "",
-//      "in_reply_to_user_id": "",
-//      "in_reply_to_screen_name": "",
-//      "geo": null,
-//      "mid": "5612814510546515491",
-//      "reposts_count": 8,
-//      "comments_count": 9,
-//      "annotations": [],
+//	`content_id` int(10) NOT NULL AUTO_INCREMENT,
+//	`user_id` int(10) NOT NULL,
+//	`content_title` varchar(50) NOT NULL,
+//	`content_body` text NOT NULL,
+//	`content_time` varchar(50) NOT NULL,
+//	`content_address` varchar(50) NOT NULL,
+//	`content_pay` varchar(50) NOT NULL,
+//	`index_pic` int(10) NOT NULL,
 	
 	public Statuses getRetweeted_status() {
 		return retweeted_status;
@@ -23,91 +17,133 @@ public class Statuses {
 	public void setRetweeted_status(Statuses retweeted_status) {
 		this.retweeted_status = retweeted_status;
 	}
-	String created_at;
-	long id;
-	String text;//内容
-	int comments_count;//评论数
-	int reposts_count;//转发数
-	int attitudes_count;//赞
-	String thumbnail_pic	;//	缩略图片地址，没有时不返回此字段
-	String bmiddle_pic;		//中等尺寸图片地址，没有时不返回此字段
-	String original_pic;        //原始图片地址，没有时不返回此字段
-	User user;
-	String source;
-	Statuses retweeted_status;//转发微博
-	
-	
-	
-	
+
+	private long content_id;
+	private String content_title;//标题
+	private String content_body;//活动详情
+	private String content_time;//活动时间
+	private String content_address;//活动地址
+	private double latitude;//经度
+	private double longitude;//纬度
+	private String charge_type;//
+	private String charge;
+	private String pic_path	;//	图片地址
+	private String source;//活动的网页地址，待实现
+	private Statuses retweeted_status;//转发活动
+
+	private long userId;
+	private String displayPic;
+	private String userNick;
+
+	public long getContent_id() {
+		return content_id;
+	}
+
+	public String getContent_address() {
+		return content_address;
+	}
+
+	public String getContent_body() {
+		return content_body;
+	}
+
+	public String getContent_time() {
+		return content_time;
+	}
+
+	public String getContent_title() {
+		return content_title;
+	}
+
+	public String getPic_path() {
+		return pic_path;
+	}
+
 	public String getSource() {
 		return source;
 	}
+
+	public void setContent_id(long content_id) {
+		this.content_id = content_id;
+	}
+
+	public void setContent_address(String content_address) {
+		this.content_address = content_address;
+	}
+
+	public void setContent_body(String content_body) {
+		this.content_body = content_body;
+	}
+
+	public void setContent_time(String content_time) {
+		this.content_time = content_time;
+	}
+
+	public void setContent_title(String content_title) {
+		this.content_title = content_title;
+	}
+
+	public void setPic_path(String pic_path) {
+		this.pic_path = pic_path;
+	}
+
 	public void setSource(String source) {
 		this.source = source;
 	}
-	public String getCreated_at() {
-		return created_at;
+
+	public long getUserId() {
+		return userId;
 	}
-	public void setCreated_at(String created_at) {
-		this.created_at = created_at;
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
-	public long getId() {
-		return id;
+
+	public String getDisplayPic() {
+		return displayPic;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setDisplayPic(String displayPic) {
+		this.displayPic = displayPic;
 	}
-	public String getText() {
-		return text;
+
+	public String getUserNick() {
+		return userNick;
 	}
-	public void setText(String text) {
-		this.text = text;
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
-	public int getComments_count() {
-		return comments_count;
+
+	public String getCharge_type() {
+		return charge_type;
 	}
-	public void setComments_count(int comments_count) {
-		this.comments_count = comments_count;
+
+	public void setCharge_type(String charge_type) {
+		this.charge_type = charge_type;
 	}
-	public int getReposts_count() {
-		return reposts_count;
+
+	public String getCharge() {
+		return charge;
 	}
-	public void setReposts_count(int reposts_count) {
-		this.reposts_count = reposts_count;
+
+	public void setCharge(String charge) {
+		this.charge = charge;
 	}
-	public int getAttitudes_count() {
-		return attitudes_count;
+
+	public double getLatitude() {
+		return latitude;
 	}
-	public void setAttitudes_count(int attitudes_count) {
-		this.attitudes_count = attitudes_count;
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
-	public String getThumbnail_pic() {
-		return thumbnail_pic;
+
+	public double getLongitude() {
+		return longitude;
 	}
-	public void setThumbnail_pic(String thumbnail_pic) {
-		this.thumbnail_pic = thumbnail_pic;
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
-	public String getBmiddle_pic() {
-		return bmiddle_pic;
-	}
-	public void setBmiddle_pic(String bmiddle_pic) {
-		this.bmiddle_pic = bmiddle_pic;
-	}
-	public String getOriginal_pic() {
-		return original_pic;
-	}
-	public void setOriginal_pic(String original_pic) {
-		this.original_pic = original_pic;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	
-	
-	
-	
 }

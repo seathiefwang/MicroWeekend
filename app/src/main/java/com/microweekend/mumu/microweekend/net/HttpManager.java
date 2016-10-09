@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.microweekend.mumu.microweekend.api.MkParameters;
+import com.microweekend.mumu.microweekend.util.AlxBitMapUtil;
 import com.microweekend.mumu.microweekend.util.Utility;
 
 import org.apache.http.Header;
@@ -28,8 +29,11 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpProtocolParams;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
@@ -51,7 +55,15 @@ import javax.net.ssl.X509TrustManager;
  * Created by mumu on 2016/9/20.
  */
 public class HttpManager {
+    private static final String BOUNDARY = getBoundry();
+    private static final String MP_BOUNDARY;
+    private static final String END_MP_BOUNDARY;
     public static String TAG = "HttpManager";
+
+    static {
+        MP_BOUNDARY = "--" + BOUNDARY;
+        END_MP_BOUNDARY = "--" + BOUNDARY + "--";
+    }
 
     public static String openUrl(String url, String method, MkParameters params, String file) {
         String result = "";
@@ -60,7 +72,7 @@ public class HttpManager {
             HttpClient e = getNewHttpClient();
             Object request = null;
             ByteArrayOutputStream bos = null;
-            //e.getParams().setParameter("http.route.default-proxy", NetStateManager.getAPN());
+            //e.getParams().setParameter("http.route.default-proxy", NetStateManager.getAPN());//设置代理
             StatusLine status;
             if(method.equals("GET")) {
                 url = url + "?" + Utility.encodeUrl(params);
@@ -74,11 +86,11 @@ public class HttpManager {
                 bos = new ByteArrayOutputStream();
                 byte[] status1;
                 if(!TextUtils.isEmpty(file)) {
-                    /*
                     paramToUpload(bos, params);
                     response1.setHeader("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
-                    Utility.UploadImageUtils.revitionPostImageSize(file);
-                    imageContentToUpload(bos, file);*/
+                    //Utility.UploadImageUtils.revitionPostImageSize(file);//改变图片的大小；
+                    //imageContentToUpload(bos, file);
+                    imgToUpload(bos, file);//图片经过压缩
                 } else {
                     if(statusCode != null) {
                         params.remove("content-type");
@@ -96,6 +108,8 @@ public class HttpManager {
                 bos.close();
                 ByteArrayEntity formEntity1 = new ByteArrayEntity(status1);
                 response1.setEntity(formEntity1);
+
+                Log.d(TAG, "HEAD:" + response1.getAllHeaders().toString());
             } else if(method.equals("DELETE")) {
                 request = new HttpDelete(url);
             }
@@ -106,7 +120,7 @@ public class HttpManager {
             if(statusCode1 != 200) {
                 result = readHttpResponse(response2);
                 //throw new Exception(result, statusCode1);
-                Log.d(TAG, ""+statusCode1);
+                Log.d(TAG, "statusCode:"+statusCode1+"--"+result);
             } else {
                 result = readHttpResponse(response2);
                 return result;
@@ -171,6 +185,105 @@ public class HttpManager {
         }
 
         return result;
+    }
+
+    private static void imageContentToUpload(OutputStream out, String imgpath) throws IOException {
+        if(imgpath != null) {
+            StringBuilder temp = new StringBuilder();
+            temp.append(MP_BOUNDARY).append("\r\n");
+            temp.append("Content-Disposition: form-data; name=\"pic\"; filename=\"").append(imgpath).append("\"\r\n");
+            String filetype = "image/jpg";
+            temp.append("Content-Type: ").append(filetype).append("\r\n\r\n");
+            byte[] res = temp.toString().getBytes();
+            FileInputStream input = null;
+            try {
+                out.write(res);
+                input = new FileInputStream(imgpath);
+                byte[] e = new byte['저'];
+
+                while(true) {
+                    int count = input.read(e);
+                    if(count == -1) {
+                        out.write("\r\n".getBytes());
+                        out.write(("\r\n" + END_MP_BOUNDARY).getBytes());
+                        return;
+                    }
+
+                    out.write(e, 0, count);
+                }
+            } catch (IOException var15) {
+                throw var15;
+            } finally {
+                if(input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException var14) {
+                        throw var14;
+                    }
+                }
+
+            }
+        }
+    }
+
+    private static void imgToUpload(OutputStream out, String imgpath) throws IOException {
+        if(imgpath != null) {
+            StringBuilder temp = new StringBuilder();
+            temp.append(MP_BOUNDARY).append("\r\n");
+            temp.append("Content-Disposition: form-data; name=\"pic\"; filename=\"").append(imgpath).append("\"\r\n");
+            String filetype = "image/jpg";
+            temp.append("Content-Type: ").append(filetype).append("\r\n\r\n");
+            byte[] res = temp.toString().getBytes();
+            out.write(res);
+            File input = null;
+            try {
+                input = new File(imgpath);
+                AlxBitMapUtil.compressImage(input, null, out, false);
+
+                out.write("\r\n".getBytes());
+                out.write(("\r\n" + END_MP_BOUNDARY).getBytes());
+            } catch (IOException e) {
+                throw e;
+            }
+        }
+    }
+
+    private static void paramToUpload(OutputStream baos, MkParameters params) throws IOException{
+        String key = "";
+
+        for(int loc = 0; loc < params.size(); ++loc) {
+            key = params.getKey(loc);
+            StringBuilder temp = new StringBuilder(10);
+            temp.setLength(0);
+            temp.append(MP_BOUNDARY).append("\r\n");
+            temp.append("content-disposition: form-data; name=\"").append(key).append("\"\r\n\r\n");
+            temp.append(params.getValue(key)).append("\r\n");
+            byte[] res = temp.toString().getBytes();
+
+            try {
+                baos.write(res);
+            } catch (IOException var7) {
+                throw var7;
+            }
+        }
+
+    }
+
+    static String getBoundry() {
+        StringBuffer _sb = new StringBuffer();
+
+        for(int t = 1; t < 12; ++t) {
+            long time = System.currentTimeMillis() + (long)t;
+            if(time % 3L == 0L) {
+                _sb.append((char)((int)time) % 9);
+            } else if(time % 3L == 1L) {
+                _sb.append((char)((int)(65L + time % 26L)));
+            } else {
+                _sb.append((char)((int)(97L + time % 26L)));
+            }
+        }
+
+        return _sb.toString();
     }
 
     private static class MySSLSocketFactory extends SSLSocketFactory {

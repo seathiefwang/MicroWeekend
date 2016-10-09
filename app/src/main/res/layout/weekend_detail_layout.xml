@@ -13,30 +13,31 @@
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="活动内容"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/whitecolor" />
+            android:textColor="@color/whitecolor"
+            android:gravity="center_vertical" />
 
         <ImageView
             android:id="@+id/toolbar_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@android:drawable/ic_menu_share"
-            android:layout_marginRight="10dp" />
+            android:padding="15dp" />
 
         <ImageView
             android:id="@+id/toolbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
-            android:layout_marginLeft="10dp" />
+            android:padding="15dp" />
 
     </RelativeLayout>
 

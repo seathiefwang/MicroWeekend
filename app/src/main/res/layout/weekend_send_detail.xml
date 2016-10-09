@@ -12,16 +12,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/send_detail_back"
-            android:textColor="@color/whitecolor"
-            android:textSize="18dp"
-            android:gravity="center"
-            android:background="@drawable/abc_ic_ab_back_mtrl_am_alpha"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp" />
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/back"
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:padding="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +44,18 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/send_detail_headly"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false">
+        android:layout_alignParentStart="false"
+        android:background="@color/whitecolor">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/editText_content"
+            android:hint="@string/mkdetail_hint"
+            android:textColor="@color/blackcolor"
+            android:textSize="20dp"
+            android:inputType="textMultiLine"
+            android:gravity="top" />
 
         <ListView
             android:layout_width="match_parent"
@@ -56,6 +63,7 @@
             android:id="@+id/listView"
             android:layout_alignParentTop="false"
             android:layout_alignParentLeft="false"
-            android:layout_alignParentStart="false" />
+            android:layout_alignParentStart="false"
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

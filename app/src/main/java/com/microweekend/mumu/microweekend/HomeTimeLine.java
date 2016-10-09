@@ -2,35 +2,41 @@ package com.microweekend.mumu.microweekend;
 /*
 下拉刷新项目地址https://github.com/HomHomLin/Android-PullToRefreshRecyclerView
 */
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
-import com.microweekend.mumu.microweekend.adapter.PtrrvBaseAdapter;
+import com.microweekend.mumu.microweekend.adapter.TimeLineAdapter;
 import com.microweekend.mumu.microweekend.customui.DemoLoadMoreView;
 import com.microweekend.mumu.microweekend.customui.DividerItemDecoration;
+import com.microweekend.mumu.microweekend.db.MkHelper;
+import com.microweekend.mumu.microweekend.entry.Statuses;
+import com.microweekend.mumu.microweekend.event.ResultEvent;
+import com.microweekend.mumu.microweekend.event.StatusEvent;
+import com.microweekend.mumu.microweekend.util.ParseJson;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 
 public class HomeTimeLine extends WeekendFra implements View.OnClickListener {
 
+	private ArrayList<Statuses> statuses;
+	private TimeLineAdapter mAdapter;
 	private PullToRefreshRecyclerView lv_refresh;
 	private TextView tv_head;
 	private View view;
-	private Context context;
 	private String TAG = "HomeTimeLine";
+	private int page = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		context = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.hometimeine_lay, container, false);
 		initView();
 		return view;
@@ -48,12 +54,12 @@ public class HomeTimeLine extends WeekendFra implements View.OnClickListener {
 
 		// custom own load-more-view and add it into ptrrv
 		DemoLoadMoreView loadMoreView = new DemoLoadMoreView(context, lv_refresh.getRecyclerView());
-		loadMoreView.setLoadmoreString("loadmore");
+		loadMoreView.setLoadmoreString("正在加载");
 		loadMoreView.setLoadMorePadding(100);
 
 		lv_refresh.setLoadMoreFooter(loadMoreView);
 //remove header
-		lv_refresh.removeHeader();
+//		lv_refresh.removeHeader();
 // set true to open swipe(pull to refresh, default is true)
 		lv_refresh.setSwipeEnable(true);
 // set the layoutManager which to use
@@ -63,6 +69,12 @@ public class HomeTimeLine extends WeekendFra implements View.OnClickListener {
 			@Override
 			public void onLoadMoreItems() {
 				//do loadmore here
+				page++;
+				StatusEvent e = new StatusEvent();
+				e.type = StatusEvent.TYPE_TIMELINE;
+				e.page = page;
+				e.count = 10;
+				EventBus.getDefault().post(e);
 			}
 		});
 // set OnRefreshListener
@@ -70,6 +82,12 @@ public class HomeTimeLine extends WeekendFra implements View.OnClickListener {
 			@Override
 			public void onRefresh() {
 				// do refresh here
+				page = 0;
+				StatusEvent e = new StatusEvent();
+				e.type = StatusEvent.TYPE_TIMELINE;
+				e.page = page;
+				e.count = 10;
+				EventBus.getDefault().post(e);
 			}
 		});
 // add item divider to recyclerView
@@ -85,10 +103,21 @@ public class HomeTimeLine extends WeekendFra implements View.OnClickListener {
 
 // set loadmore enable, onFinishLoading(can load more? , select before item)
 
-		PtrrvAdapter mAdapter = new PtrrvAdapter(context);
-		mAdapter.setCount(10);
+		statuses = ParseJson.ParseStatuses(new MkHelper(context).getContent());
+
+		mAdapter = new TimeLineAdapter(context, statuses);
+
+		mAdapter.setCount(statuses.size());
 		lv_refresh.setAdapter(mAdapter);
 		lv_refresh.onFinishLoading(true, false);
+
+		//没有本地数据就从服务器获取数据
+		if (statuses.size() == 0) {
+			StatusEvent e = new StatusEvent();
+			e.type = StatusEvent.TYPE_TIMELINE;
+			e.page = page;
+			EventBus.getDefault().post(e);
+		}
 	}
 
 	@Override
@@ -100,42 +129,32 @@ public class HomeTimeLine extends WeekendFra implements View.OnClickListener {
 		}
 	}
 
-	private class PtrrvAdapter extends PtrrvBaseAdapter<PtrrvAdapter.ViewHolder> implements View.OnClickListener {
-
-		private View view;
-		private ImageView iv_status;
-
-		public PtrrvAdapter(Context context) {
-			super(context);
+	public void onEvent(ResultEvent e) {
+		Log.d(TAG, e.toString());
+		switch (e.type) {
+			case StatusEvent.TYPE_TIMELINE:
+				refreshHomeLine(e);
+				if (lv_refresh.isRefreshing()) {
+					lv_refresh.setOnRefreshComplete();
+					lv_refresh.onFinishLoading(true, false);
+				} else {
+					lv_refresh.setOnLoadMoreComplete();
+					if (page < 3)
+						lv_refresh.onFinishLoading(true, false);
+					else
+						lv_refresh.onFinishLoading(false, false);
+				}
+				break;
 		}
+	}
 
-		@Override
-		public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-			view = mInflater.inflate(R.layout.weekend_content_itemview, null);
-			Log.i(TAG, "adapter createView");
-			initView();
-			return new ViewHolder(view);
-		}
-		@Override
-		public void onBindViewHolder(ViewHolder holder, int position) {
-			Log.i(TAG, "adapter bindView"+position);
-		}
-
-		public void initView() {
-			iv_status = (ImageView)view.findViewById(R.id.tvstatusesimg);
-
-			iv_status.setOnClickListener(this);
-		}
-
-		@Override
-		public void onClick(View v) {
-			startActivity(new Intent(context,MkDetail.class));
-		}
-
-		class ViewHolder extends RecyclerView.ViewHolder{
-			public ViewHolder(View itemView) {
-				super(itemView);
-			}
+	public void refreshHomeLine(ResultEvent e) {
+		if (e.getCode() == 1) {
+			Log.d(TAG, "msg" + e.getCode());
+			if (page == 0) statuses.clear();
+			statuses.addAll(ParseJson.ParseStatuses(e.getJson()));
+			mAdapter.setCount(statuses.size());
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 }

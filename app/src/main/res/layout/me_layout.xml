@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/headcolor"
+        android:id="@+id/relativeLayout2">
+
+        <TextView
+            android:id="@+id/nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/whitecolor" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/pic_me_set"
+            android:padding="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="98dp"
+            android:src="@drawable/profile_cover_background"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="98dp"
+            android:background="@drawable/graph_line"></LinearLayout>
+
+        <com.microweekend.mumu.microweekend.customui.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/circleImageView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/new_regist_poppic_default"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#c1c1c1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="200dp"
+            android:divider="@drawable/divider_horizontal"
+            android:showDividers="middle|beginning|end"
+            android:dividerPadding="15dp"
+            android:background="@color/white">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_sended"
+                android:text="已发布"
+                android:id="@+id/radioButton1"
+                android:layout_weight="1"
+                style="@style/maintabt"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_joined"
+                android:text="已参加"
+                android:id="@+id/radioButton2"
+                android:layout_weight="1"
+                style="@style/maintabt" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_collect"
+                android:text="已收藏"
+                android:id="@+id/radioButton3"
+                android:layout_weight="1"
+                style="@style/maintabt" />
+        </RadioGroup>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_marginTop="270dp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,70 +1,63 @@
 package com.microweekend.mumu.microweekend;
 
-import android.app.Activity;
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.microweekend.mumu.microweekend.event.TestEvent;
+import com.microweekend.mumu.microweekend.customui.BottomBar;
+import com.microweekend.mumu.microweekend.event.ResultEvent;
+import com.microweekend.mumu.microweekend.event.StatusEvent;
+import com.microweekend.mumu.microweekend.event.UserEvent;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
 import me.iwf.photopicker.PhotoPicker;
 
-public class MainTab extends Activity {
-    private BottomNavigationBar bottomNavigationBar;
-	private FragmentManager fmanager;
+public class MainTab extends WeekendAct {
+    private BottomBar bottomNavigationBar;
+    private FragmentManager fmanager;
     private HomeTimeLine fra_home;
     private DiscoverFra fra_discover;
     private MeFra fra_me;
     private MessageFra fra_message;
+    private ArrayList<String> photos;
     private Context context;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.maintabs);
-        context = this;
-		initView();
-	}
+    private String TAG = "MainTab";
 
-	/**
-	 *
-	 */
-	public void initView() {
-        bottomNavigationBar = (BottomNavigationBar)findViewById(R.id.bottom_navigation_bar);
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.icon_home,"首页")).setActiveColor("#ffffff").setInActiveColor("#c0c0c0").setBarBackgroundColor("#303030")
-                            .addItem(new BottomNavigationItem(R.drawable.icon_square, "发现"))
-                            .addItem(new BottomNavigationItem(R.drawable.compose_more_add, "发布"))
-                            .addItem(new BottomNavigationItem(R.drawable.icon_meassage, "消息"))
-                            .addItem(new BottomNavigationItem(R.drawable.icon_more, "我"))
-                            .initialise();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.maintabs);
+        context = this;
+        initView();
+    }
+
+    /**
+     *
+     */
+    public void initView() {
+        bottomNavigationBar = (BottomBar) findViewById(R.id.bottom_bar);
         setDefaultFragment();
         onClick();
-	}
+    }
 
-	public void setDefaultFragment() {
-		fmanager = getFragmentManager();
+    public void setDefaultFragment() {
+        fmanager = getFragmentManager();
         FragmentTransaction ft = fmanager.beginTransaction();
         fra_home = new HomeTimeLine();
+        fra_home.setContext(context);
         ft.replace(R.id.fl_content, fra_home);
         ft.commit();
-	}
+    }
 
     public void onClick() {
-        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
+        bottomNavigationBar.setTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
                 FragmentTransaction ft = fmanager.beginTransaction();
@@ -72,32 +65,37 @@ public class MainTab extends Activity {
                     case 0:
                         if (fra_home == null) {
                             fra_home = new HomeTimeLine();
+                            fra_home.setContext(context);
                         }
                         ft.replace(R.id.fl_content, fra_home);
                         break;
-                    case 1:
+                    case 9:
                         if (fra_discover == null) {
                             fra_discover = new DiscoverFra();
+                            fra_discover.setContext(context);
                         }
                         ft.replace(R.id.fl_content, fra_discover);
                         break;
-                    case 2:
+                    case 1:
+                        bottomNavigationBar.setReset();
                         PhotoPicker.builder()
-                                .setPhotoCount(4)
+                                .setPhotoCount(1)
                                 .setShowCamera(false)
                                 .setShowGif(false)
                                 .setPreviewEnabled(true)
                                 .start(MainTab.this, PhotoPicker.REQUEST_CODE);
                         break;
-                    case 3:
+                    case 8:
                         if (fra_message == null) {
                             fra_message = new MessageFra();
+                            fra_message.setContext(context);
                         }
                         ft.replace(R.id.fl_content, fra_message);
                         break;
-                    case 4:
+                    case 2:
                         if (fra_me == null) {
                             fra_me = new MeFra();
+                            fra_me.setContext(context);
                         }
                         ft.replace(R.id.fl_content, fra_me);
                         break;
@@ -121,51 +119,34 @@ public class MainTab extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
-            if (data != null) {
-                ArrayList<String> photos =
+        if (resultCode == RESULT_OK)
+            if (requestCode == PhotoPicker.REQUEST_CODE && data != null) {
+                photos =
                         data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                startActivity(new Intent(MainTab.this,MkSendTile.class));
+                Log.d(TAG, photos.get(0));
+                startActivityForResult(new Intent(MainTab.this, MkSendTile.class), MkSendDetail.REQUEST_CODE);
+            } else if (requestCode == MkSendDetail.REQUEST_CODE && data != null) {
+                StatusEvent e = new StatusEvent();
+                e.type = StatusEvent.TYPE_SENDMK;
+                e.setPic(photos.get(0));
+                e.body = data.getStringExtra(MkSendDetail.KEY_BODY);
+                e.title = data.getStringExtra(MkSendTile.KEY_TITLE);
+                e.time = data.getStringExtra(MkSendTile.KEY_TIME);
+                e.address = data.getStringExtra(MkSendTile.KEY_ADDRESS);
+                e.latitude = data.getDoubleExtra(MkSendTile.KEY_LATITUDE, 0.0);
+                e.longitude = data.getDoubleExtra(MkSendTile.KEY_LONGITUDE, 0.0);
+                e.charge_type = data.getStringExtra(MkSendTile.KEY_CHARGE_TYPE);
+                e.charge = data.getIntExtra(MkSendTile.KEY_CHARGE, 0);
+                EventBus.getDefault().post(e);
+            } else if (requestCode == MeFra.REQUEST_CODE && data != null) {
+                UserEvent e = new UserEvent();
+                e.type = UserEvent.TYPE_SETDISPLAYPIC;
+                e.setPic(data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS).get(0));
+                EventBus.getDefault().post(e);
             }
-        }
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-        EventBus.getDefault().post(new TestEvent());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(TestEvent te) {
-
-    }
-
-    /**http://blog.csdn.net/jdsjlzx/article/details/41643587
-     * 设置设备顶栏颜色
-     */
-    public void setStatusColor() {
-        Window window = this.getWindow();
-//取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//设置状态栏颜色
-//        window.setStatusBarColor(getResources().getColor(R.color.headcolor));
-
-        ViewGroup mContentView = (ViewGroup) this.findViewById(Window.ID_ANDROID_CONTENT);
-        View mChildView = mContentView.getChildAt(0);
-        if (mChildView != null) {
-            //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 预留出系统 View 的空间.
-            ViewCompat.setFitsSystemWindows(mChildView, true);
-        }
+    public void onEvent(ResultEvent e) {
     }
 }

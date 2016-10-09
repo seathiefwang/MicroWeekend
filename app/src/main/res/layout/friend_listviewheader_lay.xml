@@ -134,7 +134,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:background="@drawable/contacts_follow_text_bg"

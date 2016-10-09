@@ -13,21 +13,24 @@
         android:layout_alignParentStart="true"
         android:background="@color/whitecolor">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <com.microweekend.mumu.microweekend.customui.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/circleImageView"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/new_regist_poppic_default" />
+            android:src="@drawable/new_regist_poppic_default"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#c1c1c1" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView"
+            android:layout_toRightOf="@+id/circleImageView"
             android:drawablePadding="3dp"
             android:gravity="bottom"
             android:text="微周末活动组织者"
@@ -50,16 +53,16 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/weekend_img_01"
-        android:visibility="visible"
+        android:layout_height="250dp"
+        android:src="@drawable/skin_loading_icon"
         android:adjustViewBounds="true"
         android:layout_below="@+id/relativeLayout"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="中秋节|最美黄瑶古镇·徒步看最美最全的梯田"
         android:textColor="@color/blackcolor"
@@ -69,64 +72,111 @@
         android:background="@color/whitecolor"
         android:padding="10dp" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="活动时间：2016-10-01"
-        android:id="@+id/textView4"
+        android:layout_height="42dp"
         android:layout_below="@+id/textView3"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:textStyle="bold"
         android:background="@color/whitecolor"
-        android:textColor="@color/blackcolor"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/pic_datetime_picker"
+            android:paddingLeft="20dp"
+            android:textColor="@color/blackcolor"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView4"
+            android:textColor="@color/blackcolor"
+            android:gravity="center_vertical" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:id="@+id/line_01"
-        android:layout_below="@+id/textView4"
-        android:background="@drawable/graph_line" />
+        android:background="@drawable/graph_line"
+        android:layout_below="@+id/linearLayout1" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="活动地点：深圳市南山区西丽大学城"
-        android:id="@+id/textView5"
+        android:layout_height="42dp"
         android:layout_below="@+id/line_01"
-        android:background="@color/whitecolor"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:textColor="@color/blackcolor" />
+        android:background="@color/whitecolor">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/pic_map_set"
+            android:paddingLeft="20dp"
+            android:textColor="@color/blackcolor"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView5"
+            android:layout_below="@+id/line_01"
+            android:background="@color/whitecolor"
+            android:gravity="center_vertical"
+            android:textColor="@color/blackcolor" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:id="@+id/line_02"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/linearLayout2"
         android:background="@drawable/graph_line" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="活动收费：￥100"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/line_02"
+        android:layout_height="42dp"
         android:background="@color/whitecolor"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:textColor="@color/blackcolor" />
+        android:layout_below="@+id/line_02">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/pic_charge"
+            android:paddingLeft="20dp"
+            android:textColor="@color/blackcolor"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingRight="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView6"
+            android:layout_below="@+id/line_02"
+            android:background="@color/whitecolor"
+            android:gravity="center_vertical"
+            android:textColor="@color/blackcolor" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-        android:background="@drawable/graph_regtangle"
+        android:layout_below="@+id/linearLayout3"
+        android:background="@color/whitecolor"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp" >
+        android:paddingBottom="5dp"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/textView7"
@@ -146,7 +196,8 @@
             android:layout_width="1dp"
             android:layout_height="22dp"
             android:background="#a3a6a9"
-            android:layout_alignBaseline="@+id/textView7" />
+            android:layout_alignBaseline="@+id/textView7"
+            android:visibility="gone" />
 
         <TextView
             android:layout_toRightOf="@+id/line"
@@ -161,12 +212,14 @@
             android:background="@color/whitecolor"
             android:gravity="center"
             android:layout_marginRight="5dp"
-            android:id="@+id/textView8" />
+            android:id="@+id/textView8"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="1dp"
             android:layout_height="22dp"
-            android:background="#a3a6a9" />
+            android:background="#a3a6a9"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="0dp"
@@ -179,7 +232,8 @@
             android:textColor="#a3a6a9"
             android:background="@color/whitecolor"
             android:layout_marginLeft="5dp"
-            android:id="@+id/textView9" />
+            android:id="@+id/textView9"
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -42,7 +42,8 @@
         android:id="@+id/send_title_picturely"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/send_title_head">
+        android:layout_below="@+id/send_title_head"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="80dp"
@@ -72,48 +73,167 @@
             android:src="@drawable/__picker_ic_photo_black_48dp"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/send_title_picturely"
-        android:padding="10dp">
+        android:layout_below="@+id/send_title_picturely">
 
-        <EditText
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:hint="活动的标题"
-            android:background="@drawable/input_black"
-            android:padding="10dp" />
+            android:padding="5dp"
+            android:layout_marginTop="10dp">
 
-        <EditText
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:id="@+id/editText"
+                android:hint="请输入活动标题"
+                android:background="@color/whitecolor"
+                android:padding="10dp"
+                android:focusable="true"
+                android:maxLength="40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:visibility="gone"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:layout_marginTop="30dp"
+            android:baselineAligned="false"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
-            android:layout_below="@+id/editText"
-            android:hint="活动的时间"
-            android:padding="10dp"
-            android:background="@drawable/input_black"
-            android:layout_marginTop="20dp" />
+            android:padding="5dp"
+            android:background="@color/whitecolor">
 
-        <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:drawableLeft="@drawable/pic_datepicker"
+                android:id="@+id/textView_datepicker"
+                android:padding="10dp"
+                android:layout_weight="2"
+                android:hint="活动日期"
+                android:textColor="@color/headcolor"
+                android:textSize="16dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:drawableLeft="@drawable/pic_timepicker"
+                android:id="@+id/textView_timepicker"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:hint="活动时间"
+                android:textColor="@color/headcolor"
+                android:textSize="16dp"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText3"
-            android:layout_below="@+id/editText2"
-            android:hint="活动的地点"
-            android:padding="10dp"
-            android:background="@drawable/input_black"
-            android:layout_marginTop="10dp" />
+            android:background="@color/whitecolor"
+            android:padding="5dp">
 
-        <EditText
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:drawableLeft="@drawable/pic_map_set"
+                android:id="@+id/textView"
+                android:textColor="#000000"
+                android:padding="10dp"
+                android:hint="活动地点"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:layout_marginTop="20dp"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText4"
-            android:layout_below="@+id/editText3"
-            android:hint="活动的收费"
-            android:padding="10dp"
-            android:background="@drawable/input_black"
-            android:layout_marginTop="10dp" />
-    </RelativeLayout>
+            android:padding="5dp"
+            android:background="@color/whitecolor">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:measureWithLargestChild="false"
+                android:transitionGroup="false">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="免费"
+                    android:id="@+id/radioButton"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AA制"
+                    android:id="@+id/radioButton1" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收费"
+                    android:id="@+id/radioButton2" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"></LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>
